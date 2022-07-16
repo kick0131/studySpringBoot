@@ -21,6 +21,8 @@ sudo apt install -y maven
 | --- | --- |
 | Spring Boot Extention Pack | 公式のVsCodeサポート。必須
 | Extension Pack for Java | プロジェクトファイルを立ち上げようすると推奨される。必須 |
+| Dependency Analytics | ライブラリの脆弱性チェック |
+
 
 上記入れればSpring Initializr Java SupportもSpring Boot Toolsも入る
 
