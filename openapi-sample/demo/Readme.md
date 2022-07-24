@@ -1,4 +1,6 @@
 # OpenAPI sample
+openjdk 17.0.3 2022-04-19  
+Apache Maven 3.8.6
 
 ## Description
 簡単なREST APIのサンプルを作成、ついでに詳細設計用のWebドキュメントも作成する
@@ -16,6 +18,18 @@ springdoc.swagger-ui.path=/swagger-ui.html
 ```
 ### usage
 `http://localhost:8080/swagger-ui.html`にアクセスするだけ
+
+
+## To Container App
+コンテナ化対応に必要なもの
+- Dockerfile
+
+```bash
+# 事前にmvnコマンドでjarファイルが作成できることを確認
+mvn package
+# イメージファイル作成
+docker image build -t kick0131/springboot-demo:0.0.1 ./
+```
 
 
 ## Point
