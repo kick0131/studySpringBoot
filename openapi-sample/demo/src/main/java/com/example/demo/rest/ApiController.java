@@ -14,8 +14,8 @@ public class ApiController {
     // curl http://localhost:8080/api/hello
     @RequestMapping("hello")
     private String hello() {
-        log.info("SpringBoot!");
-        return "SpringBoot!";
+        log.info("SpringBooooot!");
+        return "SpringBooooot!";
     }
 
 }
