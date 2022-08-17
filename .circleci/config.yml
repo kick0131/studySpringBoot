@@ -2,7 +2,11 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.11.2
+      # new image is
+      # https://github.com/CircleCI-Public/cimg-go
+      #- image: circleci/golang:1.17
+      - image: cimg/go:1.17
     steps:
       - run: echo "hello world"
+      - run: go version
 
