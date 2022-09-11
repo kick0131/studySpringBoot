@@ -7,9 +7,6 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class UserAccount {
   public UserAccountModel model = null;
 
@@ -22,7 +19,6 @@ public class UserAccount {
       String data;
       StringBuffer json = new StringBuffer();
       while ((data = bufferedReader.readLine()) != null) {
-        System.out.println(data);
         json.append(data);
       }
       // ObjectMapperを生成

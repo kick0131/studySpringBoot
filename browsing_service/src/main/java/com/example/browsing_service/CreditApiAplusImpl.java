@@ -82,20 +82,22 @@ public class CreditApiAplusImpl implements CreditApi {
 
     // [login page]
     // ID、パスワードを入力し、ログインボタン押下(submit)
-    driver.findElement(By.id("webMemberId")).sendKeys("wkxjmckse");
-    driver.findElement(By.id("webMemberPass")).sendKeys("h1ramatsu@");
+    driver.findElement(By.id("webMemberId")).sendKeys(id);
+    driver.findElement(By.id("webMemberPass")).sendKeys(pass);
     driver.findElement(By.xpath("//input[@value='ログイン']")).click();
 
     // [top page]
     // get parameter
-    // List<WebElement> costs = driver.findElements(By.id("change01"));
-    List<WebElement> costs = driver.findElements(By.xpath("//dl[contains(@class,'dl-tbl')]/dt"));
-    for (WebElement cost : costs) {
-      // log.info(cost.findElement(By.xpath("//dl/dt")).getText());
-      // log.info(cost.findElement(By.xpath("//dl/dd")).getText());
-      // System.out.println(cost.findElement(By.xpath("//dl/dd")).getText());
-      System.out.println(cost.getText());
-    }
+    // WebElement target = driver.findElement(By.xpath("//div[@id='change02']/h3")); // OK
+    WebElement target = driver.findElement(By.xpath("//div[@id='change02']//dd[1]")); // NG
+    System.out.println(target.getText());
+
+    // ng
+    // List<WebElement> costs = driver.findElements(By.xpath("//div[@class='dl-tbl-box-inner mb-15']/dl/dd"));
+    // log.info("costs.size:{}", costs.size());
+    // for (WebElement cost : costs) {
+    //   System.out.println(cost.getText());
+    // }
     
     // session end
     driver.quit();

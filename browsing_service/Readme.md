@@ -16,16 +16,28 @@ src/main/resources/static/secure.jsonに以下ファイルを配置
 }
 ```
 
-
-## ToDo
-- 特定サイトのログイン
-- XPathを使ったデータ抽出
-
-## Done
-- logbackの出力フォーマット変更
-
 ### command
 ```bash
+# ローカルリポジトリにライブラリインストール
+mvn install
 # アプリケーション実行
 mvn spring-boot:run
 ```
+
+### usage
+ブラウザからlocalhost:8080にアクセス
+| path | api | release |
+| -- | -- | -- |
+| / | 動作確認用 | o |
+| /(account)/yyyy | 指定した年の請求金額を取得 | x |
+| /(account)/yyyymm | 指定した年月の請求金額を取得 | x |
+| /user | secure.jsonの読み込み確認 | o |
+
+# status
+## ToDo
+- XPathを使ったデータ抽出
+
+## Done
+- 特定サイトのログイン
+- logbackの出力フォーマット変更
+
