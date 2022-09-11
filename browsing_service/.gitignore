@@ -34,3 +34,6 @@ build/
 
 # add usersetting
 *.log
+
+# add securefile
+**/secure.json
