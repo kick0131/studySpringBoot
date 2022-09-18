@@ -28,7 +28,16 @@ public class KenkoRecord {
   private Long id;
   private String name;
   private String food;
-  
+
+  // ===
+  // Constructor
+  public KenkoRecord(){}
+  public KenkoRecord(Long id, String name, String food){
+    this.id = id;
+    this.name = name;
+    this.food = food;
+  }
+
   @Override
   public String toString() {
     return "KenkoRecord(id=" + id + ", name=" + name + ", food=" + food + ")";
