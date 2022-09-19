@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserAccount {
   public UserAccountModel model = null;
 
-  UserAccount() throws IOException {
+  public UserAccount(String securefilepath) throws IOException {
     // JSONファイルからセキュア情報を取得
-    File file = new File("src/main/resources/static/secure.json");
+    File file = new File(securefilepath);
 
     try (final BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
       // JSONファイルの文字列化

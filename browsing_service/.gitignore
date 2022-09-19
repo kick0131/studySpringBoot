@@ -36,4 +36,4 @@ build/
 *.log
 
 # add securefile
-**/secure.json
+**/secure*.json

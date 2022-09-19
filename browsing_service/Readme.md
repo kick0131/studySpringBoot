@@ -7,7 +7,8 @@ Seleniumを使い、特定サイトの情報をJSON形式で取り出す
 1. 環境変数PATHにChromeDriver配置ディレクトリのパスを指定
 
 ### Securefile
-src/main/resources/static/secure.jsonに以下ファイルを配置
+src/main/resources/static/secure_xxxx.jsonに以下ファイルを配置  
+xxxに入るのはpathと同じ名称(ex:secure_aplus.json)
 ```bash
 {
   "id": "xxx",
@@ -29,15 +30,17 @@ mvn spring-boot:run
 | path | api | release |
 | -- | -- | -- |
 | / | 動作確認用 | o |
-| /(account)/yyyy | 指定した年の請求金額を取得 | x |
-| /(account)/yyyymm | 指定した年月の請求金額を取得 | x |
-| /user | secure.jsonの読み込み確認 | o |
+| /debug/user | secure.jsonの読み込み確認 | o |
+| /aplus | 会社名 | o |
+| /view | 会社名 | o |
 
 # status
 ## ToDo
-- XPathを使ったデータ抽出
+- UnitTest
+- Swagger
 
 ## Done
 - 特定サイトのログイン
 - logbackの出力フォーマット変更
+- XPathを使ったデータ抽出
 
