@@ -6,6 +6,8 @@ jobs:
       - image: alpine:3.15
     steps:
       - run: echo "static test"
+      - run: echo $MY_ENV_VAR
+      - run: echo $MY_ENV_CONTEXT_KEY
 
   # Step2
   build:
