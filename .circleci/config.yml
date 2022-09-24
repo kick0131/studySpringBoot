@@ -41,7 +41,7 @@ workflows:
           filters:
             branches:
               only: 
-                - main
+                - feature/seleniumize
       - build:
           requires:
             - static-test
