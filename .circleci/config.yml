@@ -38,11 +38,11 @@ workflows:
     jobs:
       - static-test
       - build:
-        requires:
-          - static-test
+          requires:
+            - static-test
       - dynamic-test:
-        requires:
-          - build
+          requires:
+            - build
       - deploy:
-        requires:
-          - dynamic-test
+          requires:
+            - dynamic-test
