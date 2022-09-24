@@ -1,5 +1,13 @@
 version: 2.1
 jobs:
+  # Step1
+  static-test:
+    docker:
+      - image: alpine:3.15
+    steps:
+      - run: echo "static test"
+
+  # Step2
   build:
     docker:
       # new image is
@@ -10,3 +18,31 @@ jobs:
       - run: echo "hello world"
       - run: go version
 
+  # Step3
+  dynamic-test:
+    docker:
+      - image: alpine:3.15
+    steps:
+      - run: echo "dynamic test"
+
+  # Step4
+  deploy:
+    docker:
+      - image: alpine:3.15
+    steps:
+      - run: echo "deploy"
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - static-test:
+      - build
+        requires:
+          - static-test
+      - dynamic-test
+        requires:
+          - build
+      - deploy
+        requires:
+          - dynamic-test
