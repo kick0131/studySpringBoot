@@ -37,12 +37,12 @@ workflows:
   test-and-deploy:
     jobs:
       - static-test
-      - build
+      - build:
         requires:
           - static-test
-      - dynamic-test
+      - dynamic-test:
         requires:
           - build
-      - deploy
+      - deploy:
         requires:
           - dynamic-test
