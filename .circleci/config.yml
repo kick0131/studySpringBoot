@@ -37,10 +37,11 @@ workflows:
   test-and-deploy:
     jobs:
       - static-test:
+          type: approval
           filters:
             branches:
               only: 
-                - develop
+                - main
       - build:
           requires:
             - static-test
