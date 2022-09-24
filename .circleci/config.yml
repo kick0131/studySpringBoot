@@ -36,7 +36,7 @@ workflows:
   version: 2
   test-and-deploy:
     jobs:
-      - static-test:
+      - static-test
       - build
         requires:
           - static-test
