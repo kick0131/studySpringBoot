@@ -37,12 +37,28 @@ workflows:
   test-and-deploy:
     jobs:
       - static-test
+          filters:
+            branches:
+              only: 
+                - develop
       - build:
           requires:
             - static-test
+          filters:
+            branches:
+              only: 
+                - develop
       - dynamic-test:
           requires:
             - build
+          filters:
+            branches:
+              only: 
+                - develop
       - deploy:
           requires:
             - dynamic-test
+          filters:
+            branches:
+              only: 
+                - develop
