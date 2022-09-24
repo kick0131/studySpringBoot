@@ -39,7 +39,7 @@ workflows:
   test-and-deploy:
     jobs:
       - static-test:
-          type: approval
+          # type: approval
           filters:
             branches:
               only: 
