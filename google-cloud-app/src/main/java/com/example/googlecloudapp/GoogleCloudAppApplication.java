@@ -10,14 +10,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class GoogleCloudAppApplication {
 
 	public static void main(String[] args) {
-        try (ConfigurableApplicationContext ctx = SpringApplication.run(GoogleCloudAppApplication.class, args)) {
+		try (ConfigurableApplicationContext ctx = SpringApplication.run(GoogleCloudAppApplication.class, args)) {
 			try {
 				AccessTokenSample tokencls = ctx.getBean(AccessTokenSample.class);
 				tokencls.getAccessToken();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-        }
+			CloudStorageSample storagecls = ctx.getBean(CloudStorageSample.class);
+			storagecls.listFiles();
+		}
 	}
-
 }
