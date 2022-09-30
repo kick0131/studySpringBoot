@@ -15,7 +15,7 @@
 	<name>postgres-on-cloudsql</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>17</java.version>
 	</properties>
 
 	<dependencyManagement>
