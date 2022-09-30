@@ -3,12 +3,16 @@ package com.example.googlecloudapp;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
-
+@Configuration
 public class AccessTokenSample {
 
-    public static void main(String[] args) throws IOException {
+    @Bean
+    public void getAccessToken() throws IOException {
         // デフォルトのGoogle Cloud認証情報を使ってアクセストークンを取得
         GoogleCredentials credentials = GoogleCredentials.getApplicationDefault()
             .createScoped(Arrays.asList("https://www.googleapis.com/auth/cloud-platform"));
