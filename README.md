@@ -1,5 +1,7 @@
 # studySpringBoot
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kick0131/studySpringBoot/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kick0131/studySpringBoot/tree/main)
+
 ## description
 SpringBoot関連サンプルプロジェクト集  
 個々のプロジェクトの詳細についてはサブプロジェクト内のReadme.mdを参照
