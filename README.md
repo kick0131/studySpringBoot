@@ -1,5 +1,9 @@
 # studySpringBoot
 
+## description
+SpringBoot関連サンプルプロジェクト集  
+個々のプロジェクトの詳細についてはサブプロジェクト内のReadme.mdを参照
+
 # setup
 ## install JDK
 ```bash
@@ -21,6 +25,12 @@ sudo apt install -y maven
 choco install circleci-cli -y
 ```
 
+### CircleCI validation check
+.circleci/config.ymlの文法チェック
+```bash
+circleci config validate
+```
+
 ## Usage VsCode
 ### install Extention
 | Toolname | description |
@@ -32,7 +42,7 @@ choco install circleci-cli -y
 
 上記入れればSpring Initializr Java SupportもSpring Boot Toolsも入る
 
-## usage Extention
+### usage Extention
 ```bash
 # コマンドパレットからSpringBoot initializr呼び出し
 Ctrl + Shift + P
@@ -45,11 +55,5 @@ Spring Web
 Spring Boot Tools
 lombok
 # プロジェクトの出力先を選ぶ
-```
-
-## CircleCI validation check
-.circleci/config.ymlの文法チェック
-```bash
-circleci config validate
 ```
 

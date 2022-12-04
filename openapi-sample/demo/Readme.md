@@ -1,10 +1,11 @@
 # OpenAPI sample
-openjdk 17.0.3 2022-04-19  
-Apache Maven 3.8.6
 
 ## Description
 簡単なREST APIのサンプルを作成、ついでに詳細設計用のWebドキュメントも作成する
 
+### version
+openjdk 17.0.3 2022-04-19  
+Apache Maven 3.8.6
 
 ## springdoc-openapi
 Swagger風のUIでWEBページを出力してくれる  

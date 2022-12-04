@@ -1,8 +1,9 @@
 # Cloud SQL CRUD
 
-## Prepare
-write your connection name at 'resources/application.properties'.
+## Description
+write your connection name at 'src/main/resources/application.properties'.
 
+## Prepare
 ```bash
 # test table
 CREATE TABLE kenko_record
@@ -15,7 +16,7 @@ PRIMARY KEY(id));
 ### CRUD oparate with cUrl
 Browsing 'localhost:8080/' view all records.
 
-use cUrl command (ex Command prompt)
+use cURL command (ex Command prompt)
 ```bash
 # CREATE
 curl -X POST -H "Content-Type: application/json" -d @data.json localhost:8080/crud

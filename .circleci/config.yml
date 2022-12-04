@@ -39,7 +39,7 @@ workflows:
   test-and-deploy:
     jobs:
       - static-test:
-          # type: approval
+          # use context environment
           context: MY_ENV_CONTEXT
           filters:
             branches:
