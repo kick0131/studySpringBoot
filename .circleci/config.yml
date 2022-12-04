@@ -45,6 +45,7 @@ workflows:
             branches:
               only: 
                 - feature/seleniumize
+                - develop
       - build:
           requires:
             - static-test
