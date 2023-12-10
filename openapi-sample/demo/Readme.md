@@ -12,13 +12,21 @@ Swagger風のUIでWEBページを出力してくれる
 [公式ページ](https://springdoc.org/)
 
 ### install
-swagger-uiのパス定義を追加するだけ
+application.propertiesにswagger-uiのパス定義を追加するだけ
 ```bash
 # swagger-ui custom path
 springdoc.swagger-ui.path=/swagger-ui.html
 ```
+
 ### usage
-`http://localhost:8080/swagger-ui.html`にアクセスするだけ
+```bash
+# build
+mvn build
+# run
+mvn spring-boot:run
+```
+
+起動後、`http://localhost:8080/swagger-ui.html`にアクセスする
 
 
 ## To Container App
