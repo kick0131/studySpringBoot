@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:9999/demodb?enabledTLSProtocols=TLSv1.2
+    username: demouser
+    password: demopass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  sql:
+    init:
+      # SQL文を書いたスクリプトを実行する場合はalways
+      mode: always
+      # Spring Boot起動時に実行したいSQL文
+      schema-locations: classpath:mysql/schema.sql
+      data-locations: classpath:mysql/data.sql
+
