@@ -48,7 +48,7 @@ circleci config validate
 ```bash
 # コマンドパレットからSpringBoot initializr呼び出し
 Ctrl + Shift + P
-springboot initializr
+spring initializr
 
 # 作りたい設定を選ぶ(省略)
 # 初期設定で導入したいライブラリを選択
