@@ -12,14 +12,18 @@
 - MySQL
 - Azure CosmosDB
 
+### 事前準備
+- 接続先の環境に応じてポート転送設定を行う
+
 ## 方針
 - GUIは最小限、バックエンド中心の実装とする
 - application.propertiesではなく、application.yamlを使う
 
 ## トラブルシュート
-### com.mysql.cj.jdbc.Driverは非推奨
+### com.mysql.jdbc.Driverは非推奨
 ```bash
 # application.propertiesに以下を書かない！！
+# com.mysql.cj.jdbc.Driverが正解
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 
@@ -41,13 +45,17 @@ mvn spring-boot:build-image
 
 
 # 初期構築
-Helloworldまで
+プロジェクト作成からHelloworldまで。
+1. ctrl + shift + pでコマンドパレットからspring initializrを呼び出し、プロジェクト作成
+1. mvn install
+
 
 ## application.propertiesをyamlに変更
-application.yamlを作成
+初期構築で作られるapplication.propertiesの内容をapplication.yamlを新規に作成して内容を移す  
+application.propertiesは削除。
 
 ## MyBatisの設定を追加
-初期構築時のTestで失敗する
+プロパティが存在しないと初期構築時のTestで失敗するのでダミーの設定を用意する
 ```bash
 spring:
   datasource:
@@ -66,34 +74,92 @@ spring:
 
 # ローカルのMySQLアクセス
 1. MySQLのDBを用意
-```bash
-# id              integer       PK
-# bodytext        varchar(255)
-# create_datetime timestamp
-```
+    ```bash
+    # id              integer       PK
+    # bodytext        varchar(255)
+    # create_datetime timestamp
+    ```
 1. application.yamlを作成したMySQLに合わせて修正
-```bash
-# 修正前
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/mysql # ★修正
-    username: devusr  # ★修正
-    password: devpass # ★修正
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    ```bash
+    # 修正前
+    spring:
+      datasource:
+        url: jdbc:mysql://localhost:3306/mysql # ★修正
+        username: devusr  # ★修正
+        password: devpass # ★修正
+        driver-class-name: com.mysql.cj.jdbc.Driver
 
-# 修正後
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:9999/demodb?enabledTLSProtocols=TLSv1.2
-    username: demouser
-    password: demopass
-    driver-class-name: com.mysql.cj.jdbc.Driver
-```
+    # 修正後
+    spring:
+      datasource:
+        url: jdbc:mysql://localhost:9999/demodb?enabledTLSProtocols=TLSv1.2
+        username: demouser
+        password: demopass
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    ```
+
+# MyBatisを使う
+1. マッパーインタフェースを作成する
+
+    java.com.example.demo.mapper
+    ```java
+    @Mapper
+    public interface DiaryMapper {
+        @Select("SELECT * FROM diary WHERE id = #{id}")
+        DiaryDTO findDiaryById(@Param("id") String id);
+
+        @Select("SELECT * from diary")
+        List<DiaryDTO> findAll();
+    }
+    ```
+1. マッパーの実装部分(Service)を作成する
+
+    java.com.example.demo.service
+    ```java
+    @Service
+    public class DiaryService {
+      private final DiaryMapper diaryMapper;
+
+      // コンストラクタインジェクション
+      public DiaryService(DiaryMapper diaryMapper) {
+        this.diaryMapper = diaryMapper;
+      }
+
+      // 1件取得
+      public DiaryDTO getDiaryById(String id) {
+        return diaryMapper.findDiaryById(id);
+      }
+
+      // 全件取得
+      public List<DiaryDTO> getAllDiaries() {
+        return diaryMapper.findAll();
+      }
+      
+    }
+    ```
+
+1. サービスを使う
+    ```java
+    @RestController
+    public class demoRestController {
+      @Autowired
+      JdbcTemplate jdbcTemplate;
+      
+      @Autowired
+      DiaryService diaryService; // Instantiate the DiaryService class
+
+      // 全件取得
+      @GetMapping("/diary/")
+      private List<DiaryDTO> getAllDiary() {
+        List<DiaryDTO> diarys = diaryService.getAllDiaries();
+        return diarys;
+      }
+    ```
 
 # Azure上のMySQLアクセス
 
 
-# MyBatisを使う
+
 
 # トラブルシュート
 ## CommunicationsException: Communications link failure
