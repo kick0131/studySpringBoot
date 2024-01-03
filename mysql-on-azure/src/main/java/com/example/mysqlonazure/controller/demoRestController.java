@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.mysqlonazure.dto.DiaryDTO;
+import com.example.mysqlonazure.dto.EmployeeSalaryDTO;
 import com.example.mysqlonazure.service.DiaryService;
+import com.example.mysqlonazure.service.EmployeeService;
 
 // HTTP GETリクエストを受け取り、JSON形式の情報を返却するインタフェース
 // この処理をベースにDBアクセス処理を作る
@@ -18,9 +20,12 @@ import com.example.mysqlonazure.service.DiaryService;
 public class demoRestController {
   @Autowired
   JdbcTemplate jdbcTemplate;
-  
+
   @Autowired
   DiaryService diaryService; // Instantiate the DiaryService class
+
+  @Autowired
+  EmployeeService employeeService; // Instantiate the EmployeeService class
 
   @GetMapping("/hello")
   private Map<String, String> hello() {
@@ -66,6 +71,17 @@ public class demoRestController {
   private List<DiaryDTO> getAllDiary() {
     List<DiaryDTO> diarys = diaryService.getAllDiaries();
     return diarys;
+  }
+
+  // 給与取得者上位N件の取得
+  // year : 従業員の誕生年
+  // month : 従業員の誕生月
+  // limit : 取得件数
+  @GetMapping("/employeesalary/{year}/{month}/{limit}")
+  private List<EmployeeSalaryDTO> getSalaryRanking(@PathVariable String year, @PathVariable String month,
+      @PathVariable int limit) {
+    List<EmployeeSalaryDTO> employees = employeeService.topOfSalaryEmployee(year, month, limit);
+    return employees;
   }
 
 }

@@ -17,3 +17,10 @@ public interface DiaryMapper {
     List<DiaryDTO> findAll();
 }
 
+// @Mapper
+// public interface DiaryMapper {
+//     DiaryDTO findDiaryById(@Param("id") String id);
+
+//     List<DiaryDTO> findAll();
+// }
+

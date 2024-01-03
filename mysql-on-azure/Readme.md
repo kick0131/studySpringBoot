@@ -2,8 +2,9 @@
 ## 目次
 1. [初期構築](#初期構築)
 1. [ローカルのMySQLアクセス](#ローカルのmysqlアクセス)
-1. [Azure上のMySQLアクセス](#azure上のmysqlアクセス)
 1. [MyBatisを使う](#mybatisを使う)
+1. [テーブル結合](#テーブル結合)
+1. [Azure上のMySQLアクセス](#azure上のmysqlアクセス)
 
 ## 環境
 - VsCode
@@ -14,10 +15,12 @@
 
 ### 事前準備
 - 接続先の環境に応じてポート転送設定を行う
+- DBはあらかじめ用意
 
 ## 方針
 - GUIは最小限、バックエンド中心の実装とする
 - application.propertiesではなく、application.yamlを使う
+
 
 ## トラブルシュート
 ### com.mysql.jdbc.Driverは非推奨
@@ -156,6 +159,11 @@ spring:
       }
     ```
 
+# テーブル結合
+- マッパーXMLファイルを作成
+- マッパーXMLファイルの場所を定義
+
+
 # Azure上のMySQLアクセス
 
 
@@ -184,3 +192,42 @@ MySQLの接続に失敗する
     jdbc:mysql://localhost:3306/testdb?enabledTLSProtocols=TLSv1.2
     ```
 
+# DBについて
+## Diary
+適当に作ったテーブル
+```
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int          | NO   | PRI | NULL    | auto_increment |
+| bodytext        | varchar(255) | YES  |     | NULL    |                |
+| create_datetime | timestamp    | NO   |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+```
+
+## Employees, Salaries
+MySQLが公式で提供しているテーブル
+```
+mysql> show columns from employees;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| emp_no     | int           | NO   | PRI | NULL    |       |
+| birth_date | date          | NO   |     | NULL    |       |
+| first_name | varchar(14)   | NO   |     | NULL    |       |
+| last_name  | varchar(16)   | NO   |     | NULL    |       |
+| gender     | enum('M','F') | NO   |     | NULL    |       |
+| hire_date  | date          | NO   |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> show columns from salaries;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| emp_no    | int  | NO   | PRI | NULL    |       |
+| salary    | int  | NO   |     | NULL    |       |
+| from_date | date | NO   | PRI | NULL    |       |
+| to_date   | date | NO   |     | NULL    |       |
++-----------+------+------+-----+---------+-------+
+```
