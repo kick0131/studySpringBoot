@@ -21,17 +21,25 @@
 - GUIは最小限、バックエンド中心の実装とする
 - application.propertiesではなく、application.yamlを使う
 
-
-## トラブルシュート
-### com.mysql.jdbc.Driverは非推奨
+## 使い方
+1. application.yamlで接続先DBを指定する
+1. 起動後、ブラウザアクセスを行う
 ```bash
-# application.propertiesに以下を書かない！！
-# com.mysql.cj.jdbc.Driverが正解
-spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+# 起動
+mvn spring-boot:run
+
+# ブラウザアクセス
+# ■ demodbデータベース
+# /jdbcselect/{id}
+# //jdbcselect/
+# /diary/{id}
+# /diary/
+# 
+# ■ employeeデータベース
+# /employeesalary/{year}/{month}/{limit}
 ```
 
-
-## アプリケーション共通操作
+### その他アプリケーション共通操作
 [Spring Boot Mavenプラグイン](https://spring.pleiades.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/)
 ```bash
 # ライブラリインストール
@@ -101,7 +109,8 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
     ```
 
-# MyBatisを使う
+# MyBatis
+## Selectアノテーション利用
 1. マッパーインタフェースを作成する
 
     java.com.example.demo.mapper
@@ -159,9 +168,25 @@ spring:
       }
     ```
 
-# テーブル結合
+## XML対応
 - マッパーXMLファイルを作成
-- マッパーXMLファイルの場所を定義
+
+  注意点として、JavaとXMLのパッケージを合わせること
+  ```
+  java.com.example.xxx
+    hogeMapper.java
+  resources.com.example.xxx
+    hogeMapper.xml
+  ```
+
+- マッパーXMLファイルにSQL定義を記載
+  ```
+  <mapper namespace="com.example.mysqlonazure.mapper.<クラス名>">
+      <select id="<メソッド名>" resultType="com.example.mysqlonazure.dto.<DTOクラス名>">
+          SELECT * FROM diary WHERE id = #{id}
+      </select>
+  </mapper>  
+  ```
 
 
 # Azure上のMySQLアクセス
@@ -170,6 +195,13 @@ spring:
 
 
 # トラブルシュート
+## com.mysql.jdbc.Driverは非推奨
+```bash
+# application.propertiesに以下を書かない！！
+# com.mysql.cj.jdbc.Driverが正解
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+```
+
 ## CommunicationsException: Communications link failure
 ### 問題
 MySQLの接続に失敗する
@@ -191,6 +223,17 @@ MySQLの接続に失敗する
     ```yaml
     jdbc:mysql://localhost:3306/testdb?enabledTLSProtocols=TLSv1.2
     ```
+
+## BuilderException: Error creating document instance. Cause: org.xml.sax.SAXParseException;
+### 問題
+XMLマッパーの内容が解析できない。
+- 大なり小なり記号をそのまま使っている
+
+### 原因と対策
+エスケープする。
+- 大なり記号 : &gt;
+- 小なり記号 : &lt;
+
 
 # DBについて
 ## Diary

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- SELECT e.emp_no, e.birth_date, e.first_name, e.last_name, e.gender, e.hire_date, sum(s.salary) as sumsalary -->
 
 <mapper namespace="com.example.mysqlonazure.mapper.EmployeeSalaryMapper">
     <select id="topOfSalaryEmployee" resultType="com.example.mysqlonazure.dto.EmployeeSalaryDTO">
-        SELECT e.emp_no, e.first_name, e.last_name
+        SELECT e.emp_no, e.birth_date, e.first_name, e.last_name, e.gender, e.hire_date, sum(s.salary) as sumsalary
+        <!-- SELECT e.emp_no, e.first_name, e.last_name, sum(s.salary) as sumsalary -->
         FROM employees as e
         NATURAL JOIN salaries as s 
-        WHERE e.birth_date >= #{startDate} AND e.birth_date < #{endDate}
+        WHERE e.birth_date &gt;= #{startDate} AND e.birth_date &lt; #{endDate}
         GROUP BY e.emp_no
         ORDER BY sumsalary DESC
         LIMIT #{limit}

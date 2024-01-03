@@ -15,10 +15,10 @@ salary     | int  Salaries.salaryのSumが入る想定
 @Data
 public class EmployeeSalaryDTO {
   private int emp_no;
-  // private LocalDateTime birth_date;
+  private LocalDateTime birth_date;
   private String first_name;
   private String last_name;
-  // private String gender;
-  // private LocalDateTime hire_date;
-  // private int sumsalary;
+  private String gender;
+  private LocalDateTime hire_date;
+  private int sumsalary;
 }

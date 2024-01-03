@@ -8,5 +8,4 @@
     <select id="findAll" resultType="com.example.mysqlonazure.dto.DiaryDTO">
         SELECT * FROM diary
     </select>
-
 </mapper>
