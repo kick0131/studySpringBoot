@@ -6,7 +6,7 @@
 SpringBoot関連サンプルプロジェクト集  
 個々のプロジェクトの詳細についてはサブプロジェクト内のReadme.mdを参照
 
-# setup
+# Server side setup
 ## install JDK
 ```bash
 # [Ubuntu]インストール可能なJDKの確認
@@ -20,6 +20,8 @@ sudo apt install -y openjdk-XX-jdk
 # [Ubuntu]Mavenのインストール
 sudo apt install -y maven
 ```
+
+# Client side setup
 
 ## install CircleCI CLI
 ```bash
@@ -58,4 +60,23 @@ Spring Boot Tools
 lombok
 # プロジェクトの出力先を選ぶ
 ```
+
+|type|extention name|description|
+|--|--|--|
+|I/O|Spring Batch    ||
+|I/O|Validation      ||
+|I/O|Quarts Scheduler||
+
+### start SpringBoot Application
+```bash
+# build
+mvn build
+# run
+mvn spring-boot:run
+# resource clean
+mvn clean
+```
+この時点でlocalhost:8080を叩いてもなにも用意していないので404エラーを返すのが正しい。
+
+
 
