@@ -3,10 +3,9 @@
 ## Description
 Schedulerアノテーションを使ったサンプル
 
-- 1分単位に起動
-- 5分でタイムアウト
-- 10秒毎にログ出力を行う
+- 5秒毎起動し、ログ出力を行う
   - logbackを使う
+- 11秒でタイムアウト
 
 # 実装
 1. [logbackを使ったログ書き込み](#logbackを使ったログ書き込み)
@@ -46,12 +45,20 @@ Schedulerアノテーションを使ったサンプル
   ```
 
 ## タイムアウトの実装
+- 起動と同じ方法でタイムアウトを実装可能
+  ```java
+  @Scheduled(cron = "${job.check.timeout.cron}")
+  public void exitBatch() {
+  ```
+
 
 # 発展
 ## gradleで書き直す
 - https://spring.pleiades.io/spring-boot/docs/current/reference/html/getting-started.html
 - https://note.com/yucco72/n/n65119966d801
 
+
+## アプリ実行
 ```bash
 # build
 mvn build
@@ -60,3 +67,11 @@ mvn spring-boot:run
 # resource clean
 mvn clean
 ```
+
+# 課題
+## 終了方法
+Webアプリで定期実行させている場合、アプリ終了はできない。
+
+
+
+

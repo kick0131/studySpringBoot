@@ -10,7 +10,14 @@ public class ScheduleTask {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(cron = "${job.start.cron}")
-    public void reportCurrentTime() {
+    public void startBatch() {
         System.out.println("Current Time: " + dateFormat.format(new Date()));
     }
+
+    // アプリケーション自体を終了する
+    @Scheduled(cron = "${job.check.timeout.cron}")
+    public void exitBatch() {
+        System.out.println("[Exit] Current Time: " + dateFormat.format(new Date()));
+        System.exit(0);
+    }    
 }
