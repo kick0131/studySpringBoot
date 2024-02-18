@@ -3,3 +3,6 @@ spring:
   profiles:
     active: dev
 
+# ユーザ定義の設定ファイルを読み込む
+  config:
+    import: classpath:/system-properties.yaml

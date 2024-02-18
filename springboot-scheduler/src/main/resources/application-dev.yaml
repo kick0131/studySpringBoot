@@ -1,15 +1,15 @@
 logging:
   level:
     root: "warn"
-    org.springframework.web: "debug"
-    org.hibernate: "error"
+    springframework-web: "debug"
+    hibernate: "error"
     tomcat: "info"
   # パッケージをグループ化してまとめて指定することもできる
+  # keyにドットの指定を避けるためにグループ化でまとめる
   group:
     tomcat: "org.apache.catalina,org.apache.coyote,org.apache.tomcat"
+    springframework-web: "org.springframework.web"
+    hibernate: "org.hibernate"
   file:
     name: "mylog/myapplication-dev.log"
-  pattern:
-    # ログの出力フォーマットを指定する場合は、以下のように指定する
-    #file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
 

@@ -1,0 +1,13 @@
+# file root
+file:
+  root: "/usr/local/"
+job:
+  timeout: 30
+  start:
+    # https://spring.pleiades.io/spring-framework/reference/integration/scheduling.html#scheduling-cron-expression
+    # 秒、分、時、日、月、週
+    # 5秒ごとに実行
+    cron: "*/5 * * * * *"
+  check:
+    timeout:
+      cron: "0 */30 * * * *"
