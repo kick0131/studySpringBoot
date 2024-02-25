@@ -35,8 +35,8 @@ choco install circleci-cli -y
 circleci config validate
 ```
 
-## Usage VsCode
-### install Extention
+# VsCode
+## install Extention
 | Toolname | description |
 | --- | --- |
 | Spring Boot Extention Pack | 公式のVsCodeサポート。必須
@@ -46,7 +46,7 @@ circleci config validate
 
 上記入れればSpring Initializr Java SupportもSpring Boot Toolsも入る
 
-### usage Extention
+## usage Extention
 ```bash
 # コマンドパレットからSpringBoot initializr呼び出し
 Ctrl + Shift + P
@@ -63,11 +63,11 @@ lombok
 
 |type|extention name|description|
 |--|--|--|
-|I/O|Spring Batch    ||
+|I/O|Spring Batch    |Webアプリケーションではなくバッチアプリケーションの場合|
 |I/O|Validation      ||
 |I/O|Quarts Scheduler||
 
-### start SpringBoot Application
+## Start SpringBoot Application for Maven
 ```bash
 # build
 mvn build
@@ -79,4 +79,25 @@ mvn clean
 この時点でlocalhost:8080を叩いてもなにも用意していないので404エラーを返すのが正しい。
 
 
+## Start SpringBoot Application for Gradle
+```bash
+# list of tasks
+./gradlew tasks
+# build
+./gradlew build
+# run
+./gradlew bootRun
+# resource clean
+./gradlew clean
+```
 
+# トラブルシュート
+## git bashが文字化けする
+文字コードが正しいか確認
+```bash
+$ chcp.com
+現在のコード ページ: 932
+# UTF-8に変更
+$ chcp.com 65001
+Active code page: 65001
+```
