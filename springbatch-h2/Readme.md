@@ -70,7 +70,17 @@ spring:
 java -jar build/libs/xxxx.jar
 ```
 
-# 課題
+# トラブルシュート
+## H2を使うとDBに接続できないエラーが発生する
+application.yaml参照。  
+org.springframework.boot.devtoolsを使っていると発生するので除外する。
+
+## 複数Job定義ができない
+Spring Boot3(Spring Batch5)から仕様になった  
+- [tack overflow](https://stackoverflow.com/questions/76253416/using-spring-batch-job-names-with-spring-boot-3-and-spring-batch-5)
+- application.yamlのspring.batch.job.nameで実行ジョブを定義する
+- 実行ジョブを1つのみにする
+
 
 
 

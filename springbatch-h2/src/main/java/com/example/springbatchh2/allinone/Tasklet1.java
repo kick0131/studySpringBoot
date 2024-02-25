@@ -14,9 +14,7 @@ public class Tasklet1 implements Tasklet{
   @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-    System.out.println("tasklet1が実行されました");
     log.info("tasklet1が実行されました");
-    Thread.sleep(3 * 1000);
     return RepeatStatus.FINISHED;
   }
 }

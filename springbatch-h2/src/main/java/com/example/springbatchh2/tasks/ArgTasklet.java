@@ -1,4 +1,4 @@
-package com.example.springbatchh2.allinone;
+package com.example.springbatchh2.tasks;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -10,12 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class Tasklet2 implements Tasklet{
+public class ArgTasklet implements Tasklet{
   @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-    log.info("tasklet2が実行されました");
-    Thread.sleep(100);
+    log.info("ArgTaskletが実行されました");
     return RepeatStatus.FINISHED;
   }
 }

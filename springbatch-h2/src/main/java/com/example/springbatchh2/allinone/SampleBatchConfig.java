@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import com.example.springbatchh2.tasks.ArgTasklet;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -18,12 +20,23 @@ public class SampleBatchConfig {
 
   @SuppressWarnings("null")
   @Bean
-  public Job sampleJob(Step step1, Step step2, Step step3, JobRepository jobRepository,JobCompletionNotificationListener listener) {
-    return new JobBuilder("sampleJob", jobRepository)
-        // .listener(listener)
+  public Job firstJob(Step step1, Step step2, Step step3, JobRepository jobRepository,
+      JobCompletionNotificationListener listener) {
+    return new JobBuilder("firstJob", jobRepository)
+        .listener(listener)
         .start(step1)
         .next(step2)
         .next(step3)
+        .next(step3)
+        .build();
+  }
+
+  @SuppressWarnings("null")
+  @Bean
+  public Job secondJob(Step step1, Step step4, JobRepository jobRepository, JobCompletionNotificationListener listener) {
+    return new JobBuilder("secondJob", jobRepository)
+        .start(step1)
+        .next(step4)
         .build();
   }
 
@@ -45,12 +58,19 @@ public class SampleBatchConfig {
 
   @SuppressWarnings("null")
   @Bean
-  public Step step3(HelloWorldTasklet helloWorldTasklet, JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+  public Step step3(HelloWorldTasklet helloWorldTasklet, JobRepository jobRepository,
+      PlatformTransactionManager transactionManager) {
     return new StepBuilder("myStep3", jobRepository)
         .tasklet(helloWorldTasklet, transactionManager)
         .build();
   }
 
-
+  @SuppressWarnings("null")
+  @Bean
+  public Step step4(ArgTasklet argTasklet, JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    return new StepBuilder("myStep4", jobRepository)
+        .tasklet(argTasklet, transactionManager)
+        .build();
+  }
 
 }
