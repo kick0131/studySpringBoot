@@ -98,6 +98,20 @@ SpringBatch専用のアノテーション。
 JobScopeとStepScopeが存在し、ジョブ実施毎、ステップ実施毎にインスタンスの生成を行う。  
 Scopeアノテーションの一種。
 
+## NonNullアノテーション(org.springframework.lang.NonNull)
+このアノテーションがついた引数にnullを渡そうとするとNullPointerException例外を発生する。
+
+
+
+## Chunk
+- ItemReader<Output>
+  - readインタフェースを持ち、ItemProcessorまたはItemWriterに渡される
+  - ジェネリクス(型指定)をする方がバグを生みにくい
+- ItemProcessor<Input, Output>
+  - InputでItemReaderから受け取り、OutputでItemWriterに渡す
+
+
+
 
 # トラブルシュート
 ## H2を使うとDBに接続できないエラーが発生する

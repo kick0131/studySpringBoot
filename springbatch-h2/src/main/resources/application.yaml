@@ -7,7 +7,7 @@ spring:
   batch:
     job:
       enabled: true
-      name: firstJob
+      name: thirdJob
     jdbc:
       initialize-schema: always
   autoconfigure:

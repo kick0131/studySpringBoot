@@ -7,8 +7,12 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.example.springbatchh2.tasks.ArgTasklet;
@@ -19,10 +23,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SampleBatchConfig {
 
-  @SuppressWarnings("null")
   @Bean
-  public Job firstJob(Step step1, Step step2, Step step3, JobRepository jobRepository,
-      JobCompletionNotificationListener listener) {
+  public Job firstJob(@NonNull Step step1, @NonNull Step step2, @NonNull Step step3,
+      @NonNull JobRepository jobRepository,
+      @NonNull JobCompletionNotificationListener listener) {
     return new JobBuilder("firstJob", jobRepository)
         .incrementer(new RunIdIncrementer())
         .listener(listener)
@@ -33,9 +37,9 @@ public class SampleBatchConfig {
         .build();
   }
 
-  @SuppressWarnings("null")
   @Bean
-  public Job secondJob(Step step1, Step step4, JobRepository jobRepository,
+  public Job secondJob(@NonNull Step step1, @NonNull Step step4,
+      @NonNull JobRepository jobRepository,
       JobCompletionNotificationListener listener) {
     return new JobBuilder("secondJob", jobRepository)
         .incrementer(new RunIdIncrementer())
@@ -44,36 +48,60 @@ public class SampleBatchConfig {
         .build();
   }
 
-  @SuppressWarnings("null")
   @Bean
-  public Step step1(Tasklet tasklet1, JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+  public Job chunkJob(@NonNull Step chunkStep,
+      @NonNull JobRepository jobRepository) {
+    return new JobBuilder("thirdJob", jobRepository)
+        .incrementer(new RunIdIncrementer())
+        .start(chunkStep)
+        .build();
+  }
+
+  @Bean
+  public Step step1(@NonNull Tasklet tasklet1, @NonNull JobRepository jobRepository,
+      @NonNull PlatformTransactionManager transactionManager) {
     return new StepBuilder("myStep1", jobRepository)
         .tasklet(tasklet1, transactionManager)
         .build();
   }
 
-  @SuppressWarnings("null")
   @Bean
-  public Step step2(Tasklet tasklet2, JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+  public Step step2(@NonNull Tasklet tasklet2, @NonNull JobRepository jobRepository,
+      @NonNull PlatformTransactionManager transactionManager) {
     return new StepBuilder("myStep2", jobRepository)
         .tasklet(tasklet2, transactionManager)
         .build();
   }
 
-  @SuppressWarnings("null")
   @Bean
-  public Step step3(HelloWorldTasklet helloWorldTasklet, JobRepository jobRepository,
-      PlatformTransactionManager transactionManager) {
+  public Step step3(@NonNull HelloWorldTasklet helloWorldTasklet,
+      @NonNull JobRepository jobRepository,
+      @NonNull PlatformTransactionManager transactionManager) {
     return new StepBuilder("myStep3", jobRepository)
         .tasklet(helloWorldTasklet, transactionManager)
         .build();
   }
 
-  @SuppressWarnings("null")
   @Bean
-  public Step step4(ArgTasklet argTasklet, JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+  public Step step4(@NonNull ArgTasklet argTasklet,
+      @NonNull JobRepository jobRepository,
+      @NonNull PlatformTransactionManager transactionManager) {
     return new StepBuilder("myStep4", jobRepository)
         .tasklet(argTasklet, transactionManager)
+        .build();
+  }
+
+  @Bean
+  public Step chunkStep(@NonNull ItemReader<String> reader,
+      @NonNull ItemProcessor<String, String> processor,
+      @NonNull ItemWriter<String> writer,
+      @NonNull JobRepository jobRepository,
+      @NonNull PlatformTransactionManager transactionManager) {
+    return new StepBuilder("chunkStep", jobRepository)
+        .<String, String>chunk(1, transactionManager)
+        .reader(reader)
+        .processor(processor)
+        .writer(writer)
         .build();
   }
 
