@@ -7,11 +7,15 @@ spring:
   batch:
     job:
       enabled: true
-      name: secondJob
+      name: firstJob
     jdbc:
       initialize-schema: always
   autoconfigure:
     exclude: org.springframework.boot.devtools.autoconfigure.DevToolsDataSourceAutoConfiguration
+
+# ユーザ定義の設定ファイルを読み込む
+  config:
+    import: classpath:/system-properties.yaml
 
 logging:
   level:
@@ -21,3 +25,4 @@ logging:
     name: "mylog/myapplication-dev.log"
   group:
     allinone: "com.example.springbatchh2.allinone"
+

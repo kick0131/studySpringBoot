@@ -70,6 +70,35 @@ spring:
 java -jar build/libs/xxxx.jar
 ```
 
+application.yamlで実行するジョブを指定する(spring.batch.job.name)
+```yaml
+spring:
+  batch:
+    job:
+      enabled: true
+      name: secondJob
+```
+
+## 定期実行
+```ToDo:定期実行されずに終了する。要調査```
+1. Scheduleを有効にするため、mainのクラスにEnableSchedulingアノテーションを付与する
+    ```java
+    @Configuration
+    @EnableScheduling
+    ```
+1. 
+
+# HowTo
+## Configurationアノテーション
+Configurationアノテーションを付与したクラスは内部でBeanアノテーションを使うことができる。  
+Beanアノテーションを付与し、DIコンテナにBeanを登録することができる。
+
+## StepScopeアノテーション
+SpringBatch専用のアノテーション。  
+JobScopeとStepScopeが存在し、ジョブ実施毎、ステップ実施毎にインスタンスの生成を行う。  
+Scopeアノテーションの一種。
+
+
 # トラブルシュート
 ## H2を使うとDBに接続できないエラーが発生する
 application.yaml参照。  
