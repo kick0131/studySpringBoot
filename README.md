@@ -23,6 +23,13 @@ sudo apt install -y maven
 
 # Client side setup
 
+## install gradle
+for win
+- https://gradle.org/install/#manually
+
+環境変数PATHにbinまでのパスを追加
+
+
 ## install CircleCI CLI
 ```bash
 # [Win]事前にChocoletyのインストールが必要
