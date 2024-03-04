@@ -98,7 +98,7 @@ public class SampleBatchConfig {
       @NonNull JobRepository jobRepository,
       @NonNull PlatformTransactionManager transactionManager) {
     return new StepBuilder("chunkStep", jobRepository)
-        .<String, String>chunk(1, transactionManager)
+        .<String, String>chunk(3, transactionManager)
         .reader(reader)
         .processor(processor)
         .writer(writer)

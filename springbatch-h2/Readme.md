@@ -70,7 +70,8 @@ spring:
 java -jar build/libs/xxxx.jar
 ```
 
-application.yamlで実行するジョブを指定する(spring.batch.job.name)
+application.yamlで実行するジョブを指定する(spring.batch.job.name)  
+説明の便宜上この使い方をしているが、実際の開発は「1バッチ1プロジェクト」の方が使い勝手が良いと思う。
 ```yaml
 spring:
   batch:
@@ -87,6 +88,10 @@ spring:
     @EnableScheduling
     ```
 1. 
+### (検討)サービス側で定期実行した方が良い
+- Scheduleを使えるかを調査
+- その上でScheduleではなく外から定期実行させた方が良い理由を記載
+
 
 # HowTo
 ## Configurationアノテーション
@@ -104,12 +109,51 @@ Scopeアノテーションの一種。
 
 
 ## Chunk
-- ItemReader<Output>
-  - readインタフェースを持ち、ItemProcessorまたはItemWriterに渡される
+- ItemReader < Output >
+  - readインタフェースを持ち、ProcessorまたはWriterに渡される
   - ジェネリクス(型指定)をする方がバグを生みにくい
-- ItemProcessor<Input, Output>
-  - InputでItemReaderから受け取り、OutputでItemWriterに渡す
+  - nullを返却すると処理が終了し、後続のProcessor、Writerは処理されない
+- ItemProcessor < Input, Output>
+  - InputでReaderから受け取り、OutputでWriterに渡す
+  - nullを返却すると処理が終了し、後続のWriterは処理されない
+- ItemWriter < Input >
+  - writeインタフェースを持ち、ReaderまたはProcessorから受けとったInputを扱う
+- chunk()で指定した回数Reader,Processorを繰り返し実行後、Writerを実行する
 
+## Listener
+実際はXXXExecutionListenerというクラスを継承したクラスを作成する。
+|Listener|説明|
+|--|--|
+|JobListener          |Job実行前後|
+|StepListener         |Step実行前後|
+|ChunkListener        |Chunk実行前後|
+|ItemReadListener     |Reader実行前後|
+|ItemProcessorListener|Processor実行前後|
+|ItemWriterListener   |Writer実行前後|
+|RetryListener        |Retry実行前後|
+|SkipListener         |Chunkでエラーが発生した時|
+
+## 値の受け渡し
+SpringBoot解体新書(バッチ編)
+```ToDo```
+
+
+## バッチ実行方法
+SpringBoot解体新書(バッチ編)
+```ToDo```
+
+## MyBatis実行方法
+SpringBoot解体新書(バッチ編)
+```ToDo```
+
+## エラー処理
+SpringBoot解体新書(バッチ編)
+```ToDo```
+- ロールバックしつつDB書き込みする方法
+
+## テスト(JUnit)
+SpringBoot解体新書(バッチ編)
+```ToDo```
 
 
 
