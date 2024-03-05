@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+// ⅮB書き込み
 @Component
 @StepScope
 @Slf4j
@@ -34,7 +35,7 @@ public class Tasklet1 implements Tasklet {
         .put("data", data);
 
     // ロールバック挙動確認
-    boolean roleback = true;
+    boolean roleback = false;
     if(roleback){
       throw new RuntimeException("Exception in step 1");
     }

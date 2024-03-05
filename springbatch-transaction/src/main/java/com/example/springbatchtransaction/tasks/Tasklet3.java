@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+// DB読み込み
 @Component
 @StepScope
 @Slf4j
@@ -21,7 +22,8 @@ public class Tasklet3 implements Tasklet {
   @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-    log.info("tasklet2が実行されました");
+
+    log.info("tasklet3が実行されました");
     Thread.sleep(100);
     jdbcTemplate.query("SELECT * FROM sampleTable", (rs, rowNum) -> {
       log.info("ID: " + rs.getInt("id") + ", Name: " + rs.getString("name"));

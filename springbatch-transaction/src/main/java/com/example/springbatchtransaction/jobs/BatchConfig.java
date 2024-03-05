@@ -16,7 +16,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.example.springbatchtransaction.listener.JobCompletionNotificationListener;
-import com.example.springbatchtransaction.tasks.OtherTransactionTasklet;
+import com.example.springbatchtransaction.tasks.LogTasklet;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,10 +33,13 @@ public class BatchConfig {
         .incrementer(new RunIdIncrementer())
         .listener(listener)
         .start(step1)
-        .on("FAILED").to(step2)
-        .next(step3)
+        .on("FAILED")
+          .to(step3)
+          .next(stepLog)
         .from(step1).on("*").stop()
-        .next(stepLog)
+          .next(step2)
+          .next(step3)
+          .next(stepLog)
         .end()
         .build();
   }
@@ -99,7 +102,7 @@ public class BatchConfig {
   }
 
   @Bean
-  public Step stepLog(@NonNull OtherTransactionTasklet tasklet, @NonNull JobRepository jobRepository,
+  public Step stepLog(@NonNull LogTasklet tasklet, @NonNull JobRepository jobRepository,
       @NonNull PlatformTransactionManager transactionManager) {
     return new StepBuilder("stepLog", jobRepository)
         .tasklet(tasklet, transactionManager)
