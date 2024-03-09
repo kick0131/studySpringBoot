@@ -1,4 +1,4 @@
-package com.example.springbatchh2.allinone;
+package com.example.springbatchh2.tasks;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -12,11 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @StepScope
 @Slf4j
-public class Tasklet1 implements Tasklet{
+public class HelloWorldTasklet implements Tasklet {
   @SuppressWarnings("null")
   @Override
-  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-    log.info("tasklet1が実行されました");
+  public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {
+    log.info("★★★★★ Hello, World! ★★★★★");
     return RepeatStatus.FINISHED;
   }
 }

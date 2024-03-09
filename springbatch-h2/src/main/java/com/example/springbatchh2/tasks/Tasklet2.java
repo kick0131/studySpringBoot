@@ -1,4 +1,4 @@
-package com.example.springbatchh2.allinone;
+package com.example.springbatchh2.tasks;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;

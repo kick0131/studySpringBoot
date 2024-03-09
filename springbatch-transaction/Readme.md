@@ -8,6 +8,26 @@
 
 DB書き込みを行うのでH2を使う。
 
+### ソースについて
+SpringBatch-h2からソースを流用している。  
+フロー制御のサンプルプロジェクトとして別プロジェクト化している。  
+基本的な説明はSpringBatch-h2を参照すること。
+
+
+### ジョブの説明
+- firstJob
+    - フロー制御の練習ジョブ
+    - Tasklet1で意図的に例外を発生させてフロー分岐を確認する
+    - 例外が発生するとそのトランザクションはロールバックするが、ロールバックしても残したいデータを  
+    JobExecutionContextに格納し、他のステップで使えるようにする
+        - Tasklet1 : DB書き込み、JobExecution書き込み
+        - Tasklet2 : DB書き込み、JobExecution書き込み
+        - Tasklet3 : DB読み込み
+        - LogTasklet : JobExecution読み込み
+    
+- secondJob
+    - 特に意味はない
+
 ## JobContext
 Step間で値の受け渡しをするためのクラス
 

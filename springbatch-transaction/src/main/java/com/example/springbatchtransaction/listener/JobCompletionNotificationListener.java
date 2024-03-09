@@ -13,13 +13,11 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
 
   private static final Logger log = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
 
-  @SuppressWarnings("null")
   @Override
   public void beforeJob(JobExecution jobExecution) {
     log.info("beforeJob status : " + jobExecution.getStatus());
   }
 
-  @SuppressWarnings("null")
   @Override
   public void afterJob(JobExecution jobExecution) {
     if (jobExecution.getStatus() == BatchStatus.COMPLETED) {

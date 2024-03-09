@@ -46,7 +46,8 @@ Gradle 8.5
 - application.yamlを配置する
 
 ## DB操作
-
+### メタデータDB
+SpringBatchを動作するために必ずDBが必要
 ```yaml
 # H2 Database接続設定
 spring:
@@ -56,8 +57,6 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 ```
-
-
 
 ## アプリ実行
 ```bash
@@ -80,35 +79,40 @@ spring:
       name: secondJob
 ```
 
-## 定期実行
-```ToDo:定期実行されずに終了する。要調査```
-1. Scheduleを有効にするため、mainのクラスにEnableSchedulingアノテーションを付与する
-    ```java
-    @Configuration
-    @EnableScheduling
-    ```
-1. 
-### (検討)サービス側で定期実行した方が良い
-- Scheduleを使えるかを調査
-- その上でScheduleではなく外から定期実行させた方が良い理由を記載
-
+## 定期実行(Schedule)はできない
+main処理自体は単発で終了する単なるjarなので外から実行する仕組みが必要
+- crond
+- コンテナそのものを定期的に起動する
 
 # HowTo
+## Scope
+Taskletに付与する。上から順に使用頻度が高い。  
+アノテーションの形で使用する。
+|スコープ指定|動作|
+|--|--|
+|StepScope|Stepの開始から終了まで同じインスタンスを使用|
+|JobScope |Jobの開始から終了まで同じインスタンスを使用|
+|未記載    |シングルトンになる。冪等性の考え方からして使わないことを推奨|
+
+
 ## Configurationアノテーション
 Configurationアノテーションを付与したクラスは内部でBeanアノテーションを使うことができる。  
 Beanアノテーションを付与し、DIコンテナにBeanを登録することができる。
-
-## StepScopeアノテーション
-SpringBatch専用のアノテーション。  
-JobScopeとStepScopeが存在し、ジョブ実施毎、ステップ実施毎にインスタンスの生成を行う。  
-Scopeアノテーションの一種。
+```
++--------------------------+
+| @Configuration           |
+| クラス                   |
+| +----------------------+ |
+| | @Bean                | |
+| | Bean登録処理(メソッド) ||
+| +----------------------+ |
++--------------------------+
+```
 
 ## NonNullアノテーション(org.springframework.lang.NonNull)
 このアノテーションがついた引数にnullを渡そうとするとNullPointerException例外を発生する。
 
-
-
-## Chunk
+## Chunk (chunk01ディレクトリ内のサンプル)
 - ItemReader < Output >
   - readインタフェースを持ち、ProcessorまたはWriterに渡される
   - ジェネリクス(型指定)をする方がバグを生みにくい
@@ -132,6 +136,11 @@ Scopeアノテーションの一種。
 |ItemWriterListener   |Writer実行前後|
 |RetryListener        |Retry実行前後|
 |SkipListener         |Chunkでエラーが発生した時|
+
+注意
+- StepListenerはStep定義、JobListenerはJob定義で記載する。  
+意図しないところで定義しても何も反応しない。
+
 
 ## 値の受け渡し
 SpringBoot解体新書(バッチ編)

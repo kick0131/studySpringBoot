@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-// ⅮB書き込み
+// DB書き込み
 @Component
 @StepScope
 @Slf4j
@@ -22,7 +22,6 @@ public class Tasklet1 implements Tasklet {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
-  @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
     log.info("tasklet1が実行されました");

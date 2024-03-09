@@ -19,7 +19,6 @@ public class Tasklet2 implements Tasklet {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
-  @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
     log.info("tasklet2が実行されました");

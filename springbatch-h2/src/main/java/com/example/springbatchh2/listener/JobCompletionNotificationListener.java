@@ -1,4 +1,4 @@
-package com.example.springbatchh2.allinone;
+package com.example.springbatchh2.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
