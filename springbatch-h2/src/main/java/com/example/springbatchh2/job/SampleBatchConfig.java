@@ -39,13 +39,16 @@ public class SampleBatchConfig {
   @Bean
   public Job secondJob(@NonNull Step step1, @NonNull Step argStep,
       @NonNull JobRepository jobRepository,
-      @NonNull JobParametersValidator validator,
+      // @NonNull JobParametersValidator validator,
+      @NonNull JobParametersValidator compositeValidator,
       JobCompletionNotificationListener listener) {
+    // 自作Validatorを使う場合と標準のValidatorを使う場合でコメントを使い分ける
     return new JobBuilder("secondJob", jobRepository)
         .incrementer(new RunIdIncrementer())
         .start(step1)
         .next(argStep)
-        .validator(validator)
+        // .validator(validator)
+        .validator(compositeValidator)
         .build();
   }
 
