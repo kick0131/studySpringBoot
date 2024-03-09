@@ -16,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StepSampleOther {
   @Bean
-  public Step OtherStep(@NonNull Tasklet tasklet1, @NonNull JobRepository jobRepository,
+  public Step otherStep(@NonNull Tasklet tasklet1, @NonNull JobRepository jobRepository,
       @NonNull PlatformTransactionManager transactionManager) {
-    return new StepBuilder("OtherStep", jobRepository)
+    return new StepBuilder("otherStep", jobRepository)
         .tasklet(tasklet1, transactionManager)
         .build();
   }

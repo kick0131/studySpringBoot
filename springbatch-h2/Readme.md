@@ -112,6 +112,13 @@ Beanアノテーションを付与し、DIコンテナにBeanを登録するこ�
 ## NonNullアノテーション(org.springframework.lang.NonNull)
 このアノテーションがついた引数にnullを渡そうとするとNullPointerException例外を発生する。
 
+## Spring Batch固有アノテーション
+BeforeStepとか
+
+https://spring.pleiades.io/spring-batch/docs/current/api/org/springframework/batch/core/annotation/package-summary.html
+
+
+
 ## Chunk (chunk01ディレクトリ内のサンプル)
 - ItemReader < Output >
   - readインタフェースを持ち、ProcessorまたはWriterに渡される
@@ -143,8 +150,27 @@ Beanアノテーションを付与し、DIコンテナにBeanを登録するこ�
 
 
 ## 値の受け渡し
-SpringBoot解体新書(バッチ編)
-```ToDo```
+- JobExecutionContextまたはStepExecutionContextを使う。  
+サンプルはspringbatch-transactionプロジェクト参照
+```
+StepContribution
++ StepExecution
+  + StepExecutionContext
+  + JobExecution
+    + JobExecutionContext
+```
+- 設定方法
+  - ExecutionContextにput(key,value)で値を格納する
+- 取得方法
+  - taskletの場合
+    - @Valueアノテーションを使用する
+  - chunkの場合
+    - @BeforeStepアノテーション内でコンテキストを使用する
+    ```
+    @BeforeStep
+    public void beforeStep(StepExecution stepExecution)
+      以下略
+    ```
 
 
 ## バッチ実行方法

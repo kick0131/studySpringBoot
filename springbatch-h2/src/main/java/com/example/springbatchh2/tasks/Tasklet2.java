@@ -9,15 +9,26 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+// Tasklet1との違いは
+// execute外でExecutionContextを使う
 @Component
 @StepScope
 @Slf4j
-public class Tasklet2 implements Tasklet{
+public class Tasklet2 implements Tasklet {
+
   @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
     log.info("tasklet2が実行されました");
     Thread.sleep(100);
+
+    // ChunkContextを使った例
+    chunkContext.getStepContext()
+        .getStepExecution()
+        .getJobExecution()
+        .getExecutionContext()
+        .put("jobKey2", "jobValue2");
+
     return RepeatStatus.FINISHED;
   }
 }

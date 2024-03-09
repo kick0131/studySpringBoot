@@ -19,7 +19,8 @@ public class SampleBatchConfig {
 
   @Bean
   public Job firstJob(@NonNull Step step1, @NonNull Step step2, @NonNull Step helloStep,
-      @NonNull Step OtherStep,
+      @NonNull Step argStep,
+      @NonNull Step otherStep,
       @NonNull JobRepository jobRepository,
       @NonNull JobCompletionNotificationListener listener) {
     return new JobBuilder("firstJob", jobRepository)
@@ -29,7 +30,8 @@ public class SampleBatchConfig {
         .next(step2)
         .next(helloStep)
         .next(helloStep)
-        .next(OtherStep)
+        .next(argStep)
+        .next(otherStep)
         .build();
   }
 
@@ -52,6 +54,5 @@ public class SampleBatchConfig {
         .start(chunkStep)
         .build();
   }
-
 
 }
