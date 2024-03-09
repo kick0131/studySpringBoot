@@ -4,7 +4,7 @@
 SpringBatchサンプルコード
 
 - シンプルなHelloWorldバッチ実行を行う
-- DBのCRUD操作をバッチで実現する
+- DBのCRUD操作をバッチで実現する(未実装)
   - 1秒ごとに以下の処理を行う
     - Create
     - Read
@@ -41,6 +41,14 @@ Gradle 8.5
 1. [HelloWorldサンプル](#HelloWorldサンプル)
 1. [DB操作](#DB操作)
 
+## Job説明
+application.yamlで指定する
+|Job|説明|備考|
+|--|--|--|
+|firstJob |Taskletサンプル||
+|secondJob|Taskletサンプル|validationを適用しているため引数指定がないとエラー|
+|thirdJob |chunkサンプル  ||
+
 ## HelloWorldサンプル
 - logback-spring.xmlを配置する
 - application.yamlを配置する
@@ -59,14 +67,21 @@ spring:
 ```
 
 ## アプリ実行
+[色々な引数の渡し方](https://spring.pleiades.io/spring-boot/docs/3.2.3/gradle-plugin/reference/htmlsingle/)
 ```bash
 # アプリケーションを直接実行
 ./gradlew bootRun
+
+# アプリケーションを直接実行(引数付き)
+./gradlew bootRun --args='argStr=ABCDE'
 
 # 実行可能jarを作成し、別途コマンドラインから実行
 # build/libs配下にjarが生成される
 ./gradlew bootJar
 java -jar build/libs/xxxx.jar
+
+# jar実行(引数付き)
+java -jar build/libs/xxxx.jar argStr=ABCDE
 ```
 
 application.yamlで実行するジョブを指定する(spring.batch.job.name)  
@@ -173,9 +188,19 @@ StepContribution
     ```
 
 
-## バッチ実行方法
-SpringBoot解体新書(バッチ編)
-```ToDo```
+## バッチ実行時引数
+[アプリ実行](#アプリ実行)参照
+- Valueアノテーションを使うことで引数の取得が可能
+    ```java
+    @Value("#{jobParameters['key']}")
+    ```
+
+- Valueアノテーションが使えるクラスはStepScopeまたはJobScopeで定義されたBeanであること
+- メソッド引数にも割り当て可能
+- validatorを組み込むことで引数チェックが可能。  
+チェックNGでJobParametersInvalidException例外が発生。  
+サンプルは"secondJob"参照
+
 
 ## MyBatis実行方法
 SpringBoot解体新書(バッチ編)

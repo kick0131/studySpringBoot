@@ -1,6 +1,7 @@
 package com.example.springbatchh2.job;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -38,11 +39,13 @@ public class SampleBatchConfig {
   @Bean
   public Job secondJob(@NonNull Step step1, @NonNull Step argStep,
       @NonNull JobRepository jobRepository,
+      @NonNull JobParametersValidator validator,
       JobCompletionNotificationListener listener) {
     return new JobBuilder("secondJob", jobRepository)
         .incrementer(new RunIdIncrementer())
         .start(step1)
         .next(argStep)
+        .validator(validator)
         .build();
   }
 

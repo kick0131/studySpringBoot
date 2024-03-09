@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @StepScope
 @Slf4j
 public class HelloWorldTasklet implements Tasklet {
+
   @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) {

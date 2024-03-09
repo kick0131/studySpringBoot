@@ -24,18 +24,23 @@ public class ArgTasklet implements Tasklet {
   @Value("#{StepExecutionContext['stepKey']}")
   private String stepValue;
 
+  // バッチ実行時引数はjobParametersで取得
+  @Value("#{jobParameters['argStr']}")
+  private String argStr;
+
   @SuppressWarnings("null")
   @Override
   public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
     log.info("ArgTaskletが実行されました");
 
-    // ChunkContextを使った例
+    // ChunkContextを使ったExecutionContext取得例
     String jobValue2 = (String) chunkContext.getStepContext()
         .getJobExecutionContext()
         .get("jobKey2");
 
     log.info("-----------------------------");
-    log.info("jobKey={} jobKey2={} stepKey={}", jobValue, jobValue2, stepValue);
+    log.info("argStr={} jobKey={} jobKey2={} stepKey={}",
+        argStr, jobValue, jobValue2, stepValue);
     log.info("-----------------------------");
 
     return RepeatStatus.FINISHED;
