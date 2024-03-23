@@ -25,6 +25,8 @@ sudo apt install -y maven
 ```bash
 # [Win]事前にChocoletyのインストールが必要
 choco install circleci-cli -y
+# [Ubuntu]
+sudo snap install circleci
 ```
 
 ### CircleCI validation check
