@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: using-azuresdk
+  # 今のところDBは使わない
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+# ユーザ定義の設定ファイルを読み込む
+  config:
+    import: classpath:/system-properties.yaml
+
+logging:
+  level:
+    root: "info"
+    myapp: "debug"
+  file:
+    name: "mylog/myapplication-dev.log"
+  group:
+    myapp: "com.example.*"
+

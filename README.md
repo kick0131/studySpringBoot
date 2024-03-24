@@ -6,6 +6,18 @@
 SpringBoot関連サンプルプロジェクト集  
 個々のプロジェクトの詳細についてはサブプロジェクト内のReadme.mdを参照
 
+|project|内容|ビルドツール|
+|--|--|--|
+|browsing_service       |Sereniumを使ったクローリング|maven|
+|google-cloud-app       |GCP環境のアクセスサンプル|maven|
+|openapi-sample         |SwaggerUIの使い方|maven|
+|postgres-on-cloudsql   |GCP環境のアクセスサンプル2(CloudSQL)|maven|
+|springbatch-h2         |Spring Batch基本操作|gradle|
+|springbatch-transaction|Spring Batchのトランザクション|gradle|
+|springboot-scheduler   |@Schedulerアノテーションサンプル|maven|
+|using-azuresdk         |Azure SDKの使い方|maven|
+|||
+
 # Server side setup
 ## install JDK
 ```bash

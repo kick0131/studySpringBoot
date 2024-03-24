@@ -1,0 +1,14 @@
+# ユーザ定義のプロパティ
+# file root
+file:
+  root: "/usr/local/"
+job:
+  timeout: 30
+  start:
+    # https://spring.pleiades.io/spring-framework/reference/integration/scheduling.html#scheduling-cron-expression
+    # 秒、分、時、日、月、週
+    # 5秒ごとに実行
+    cron: "*/10 * * * * *"
+  # 強制終了までの時間
+  stop:
+    cron: "25 * * * * *"
